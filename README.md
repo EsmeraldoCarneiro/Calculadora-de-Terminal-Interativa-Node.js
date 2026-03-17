@@ -47,6 +47,27 @@ node calculadora_terminal.js
 
 ---
 
+## 🛠️ Configurações de Ambiente e Soluções (FAQ)
+
+Durante o desenvolvimento desta ferramenta de terminal, foram aplicadas configurações específicas para garantir a compatibilidade entre o código e o ambiente de execução:
+
+### 1. Erro: `process is not defined`
+Ao desenvolver para Node.js em editores como o VS Code, o motor de linting (ESLint) pode sinalizar que o objeto `process` não está definido. Isso ocorre porque o editor, por padrão, assume um ambiente de **Navegador (Browser)**.
+* **Solução**: Foi adicionada a diretiva `/* eslint-env node */` no topo do arquivo. Isso informa ao editor que o código utiliza globais do Node.js (como `process.stdin` e `process.stdout`), silenciando avisos falsos de erro.
+
+### 2. Erro: `MODULE_NOT_FOUND` no Terminal
+Este erro ocorre quando o Node.js não consegue localizar o arquivo especificado devido a erros no caminho ou na extensão do arquivo.
+* **Solução**: Certifique-se de estar dentro da pasta  e sempre inclua a extensão `.js` ao executar o comando:
+  ```powershell
+  node calculadora_terminal.js
+  ```
+
+### 3. Entradas Assíncronas (`async/await`)
+Diferente do navegador (onde o `prompt` trava a execução), no terminal as entradas são assíncronas.
+* **Solução**: O código utiliza **Promises** junto com o módulo `readline` para criar uma experiência interativa, garantindo que o sistema espere a resposta do usuário antes de processar o cálculo.
+
+---
+
 ## 💡 Notas de Desenvolvimento (Análise Técnica)
 
 * **Ambiente (Linting)**: Para evitar erros de "Variable not defined" como o `process`, o código inclui a sinalização `/* eslint-env node */`, garantindo que o editor reconheça as globais do Node.js.
